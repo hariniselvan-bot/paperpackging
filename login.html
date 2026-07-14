@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — Stackly</title>
+  <meta name="description" content="Sign in to your Stackly account to access your dashboard and manage orders.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <div class="auth-page">
+    <!-- Left Image -->
+    <div class="auth__image" style="background-image:url('assets/images/about-lifestyle.webp');">
+      <div class="auth__image-overlay"></div>
+      <div class="auth__image-content">
+        <span class="auth__logo-frame"><img src="assets/images/logo.webp" class="auth__logo-image" alt="Stackly"></span>
+        <h2 style="font-family:var(--font-display); font-size:32px; font-weight:700; margin-bottom:12px;">Welcome Back</h2>
+        <p style="font-size:16px; opacity:0.8; line-height:1.6;">Sign in to access your dashboard, track orders, and manage your packaging projects.</p>
+      </div>
+    </div>
+
+    <!-- Right Form -->
+    <div class="auth__form-section">
+      <div class="auth__form-wrap">
+        <h1 class="auth__form-title">Sign In</h1>
+        <p class="auth__form-subtitle">Enter your credentials to access your account</p>
+
+        <!-- Role Toggle -->
+        <div class="role-toggle">
+          <button type="button" class="role-toggle__btn active" data-role="user">User</button>
+          <button type="button" class="role-toggle__btn" data-role="admin">Admin</button>
+        </div>
+
+        <form id="loginForm" novalidate>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <div class="form-input-icon">
+              <i data-lucide="mail" class="form-input-icon__prefix" style="width:18px;height:18px;"></i>
+              <input type="email" name="email" class="form-input" placeholder="you@company.com" required>
+            </div>
+            <span class="form-error">Please enter a valid email</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="form-input-icon">
+              <i data-lucide="lock" class="form-input-icon__prefix" style="width:18px;height:18px;"></i>
+              <input type="password" name="password" class="form-input" placeholder="Enter your password" required>
+              <button type="button" class="form-input-icon__suffix toggle-password" style="background:none; padding:0;">
+                <i data-lucide="eye" style="width:18px;height:18px;"></i>
+              </button>
+            </div>
+            <span class="form-error">Password is required</span>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+            <label class="form-checkbox">
+              <input type="checkbox" checked>
+              <span class="form-checkbox__text">Remember me</span>
+            </label>
+            <a href="404.html" style="font-size:14px; color:var(--blue-primary); font-weight:500;">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--full" id="loginBtn">Sign In</button>
+        </form>
+
+        <p class="auth__footer">Don't have an account? <a href="register.html">Register</a></p>
+        <a href="index.html" class="btn btn--outline-blue btn--sm auth__home-link">Go Back Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+
+      // Role toggle
+      const roleBtns = document.querySelectorAll('.role-toggle__btn');
+      let selectedRole = 'user';
+
+      roleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          roleBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedRole = btn.dataset.role;
+        });
+      });
+
+      // Toggle password visibility
+      document.querySelector('.toggle-password')?.addEventListener('click', function() {
+        const input = this.closest('.form-input-icon').querySelector('input');
+        const icon = this.querySelector('i');
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.setAttribute('data-lucide', 'eye-off');
+        } else {
+          input.type = 'password';
+          icon.setAttribute('data-lucide', 'eye');
+        }
+        lucide.createIcons();
+      });
+
+      // Login form
+      document.getElementById('loginForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const email = e.target.querySelector('[name="email"]').value;
+        const password = e.target.querySelector('[name="password"]').value;
+
+        // Basic validation
+        if (!email || !password) {
+          showToast('Please fill in all fields', 'error');
+          return;
+        }
+
+        if (password.length < 6) {
+          showToast('Password must be at least 6 characters', 'error');
+          return;
+        }
+
+        // Simulate login
+        const btn = document.getElementById('loginBtn');
+        btn.textContent = 'Signing in...';
+        btn.disabled = true;
+
+        setTimeout(() => {
+          Auth.login(email, selectedRole, email.split('@')[0]);
+          showToast('Signed in successfully!', 'success');
+
+          // Redirect based on role
+          setTimeout(() => {
+            if (selectedRole === 'admin') {
+              window.location.href = 'admin-dashboard.html';
+            } else {
+              window.location.href = 'dashboard.html';
+            }
+          }, 500);
+        }, 1000);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Stackly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="dashboard__sidebar" id="sidebar">
+      <div class="dashboard__sidebar-header">
+        <a href="index.html" class="dashboard__sidebar-logo">
+          <img src="assets/images/logo.webp" class="dashboard__logo-image" alt="Stackly">
+        </a>
+      </div>
+      <nav class="dashboard__sidebar-nav">
+        <a href="dashboard.html" class="dashboard__sidebar-link active"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+        <a href="dashboard.html" class="dashboard__sidebar-link"><i data-lucide="shopping-bag"></i> My Orders</a>
+        <a href="dashboard.html" class="dashboard__sidebar-link"><i data-lucide="heart"></i> Saved Designs</a>
+        <a href="dashboard.html" class="dashboard__sidebar-link"><i data-lucide="message-square"></i> Messages</a>
+        <a href="dashboard.html" class="dashboard__sidebar-link"><i data-lucide="settings"></i> Settings</a>
+        <a href="dashboard.html" class="dashboard__sidebar-link" onclick="Auth.logout(); return false;"><i data-lucide="log-out"></i> Logout</a>
+      </nav>
+      <div class="dashboard__sidebar-summary"><strong>Your workspace</strong><span>24 total orders<br>5 orders in progress</span></div>
+    </aside>
+    <div class="dashboard__sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- Main -->
+    <main class="dashboard__main">
+      <!-- Topbar -->
+      <header class="dashboard__topbar">
+        <button class="nav__menu-toggle dashboard__menu-toggle" id="sidebarToggle" type="button" aria-label="Open dashboard menu" aria-expanded="false" aria-controls="sidebar"><i data-lucide="menu" style="width:24px;height:24px;"></i></button>
+        <div class="dashboard__topbar-search">
+          <i data-lucide="search" style="width:16px;height:16px;"></i>
+          <input type="text" placeholder="Search...">
+        </div>
+        <div class="dashboard__topbar-actions">
+          <button class="dashboard__topbar-btn"><i data-lucide="bell" style="width:20px;height:20px;"></i><span class="dot"></span></button>
+          <div class="dashboard__topbar-profile">
+            <div class="dashboard__topbar-avatar">U</div>
+            <span style="font-size:14px; font-weight:500; color:var(--dark-brown);">User</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="dashboard__content">
+        <h1 style="font-family:var(--font-display); font-size:28px; font-weight:700; color:var(--dark-brown); margin-bottom:24px;">Dashboard</h1>
+
+        <!-- Stats -->
+        <div class="dashboard__stats">
+          <div class="stat-card">
+            <div class="stat-card__header">
+              <span class="stat-card__title">Total Orders</span>
+              <div class="stat-card__icon stat-card__icon--blue"><i data-lucide="shopping-bag" style="width:20px;height:20px;"></i></div>
+            </div>
+            <p class="stat-card__value" data-count="24">0</p>
+            <span class="stat-card__change up">+3 this month</span>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__header">
+              <span class="stat-card__title">Pending</span>
+              <div class="stat-card__icon stat-card__icon--orange"><i data-lucide="clock" style="width:20px;height:20px;"></i></div>
+            </div>
+            <p class="stat-card__value" data-count="5">0</p>
+            <span class="stat-card__change">Awaiting</span>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__header">
+              <span class="stat-card__title">Completed</span>
+              <div class="stat-card__icon stat-card__icon--green"><i data-lucide="check-circle" style="width:20px;height:20px;"></i></div>
+            </div>
+            <p class="stat-card__value" data-count="18">0</p>
+            <span class="stat-card__change up">+2 this week</span>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__header">
+              <span class="stat-card__title">Saved</span>
+              <div class="stat-card__icon stat-card__icon--red"><i data-lucide="heart" style="width:20px;height:20px;"></i></div>
+            </div>
+            <p class="stat-card__value" data-count="12">0</p>
+            <span class="stat-card__change">Designs</span>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div style="display:flex; gap:16px; margin-bottom:32px; flex-wrap:wrap;">
+          <a href="index.html#categories" class="btn btn--primary btn--sm"><i data-lucide="plus" style="width:16px;height:16px;"></i> Place New Order</a>
+          <a href="index.html#categories" class="btn btn--outline-blue btn--sm"><i data-lucide="box" style="width:16px;height:16px;"></i> Browse Products</a>
+          <a href="contact.html" class="btn btn--outline btn--sm"><i data-lucide="message-circle" style="width:16px;height:16px;"></i> Contact Support</a>
+        </div>
+
+        <!-- Recent Orders -->
+        <div class="dashboard__table-wrap">
+          <div class="dashboard__table-header">
+            <h3 class="dashboard__table-title">Recent Orders</h3>
+            <a href="#" style="font-size:14px; color:var(--blue-primary); font-weight:500;">View All</a>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Product</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600; color:var(--dark-brown);">#ORD-2025-001</td>
+                  <td>Custom Mailer Boxes</td>
+                  <td>Jan 12, 2025</td>
+                  <td><span class="status-badge status-badge--shipped">Shipped</span></td>
+                  <td style="font-weight:600;">$245.00</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600; color:var(--dark-brown);">#ORD-2025-002</td>
+                  <td>Kraft Paper Bags</td>
+                  <td>Jan 10, 2025</td>
+                  <td><span class="status-badge status-badge--processing">Processing</span></td>
+                  <td style="font-weight:600;">$89.50</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600; color:var(--dark-brown);">#ORD-2025-003</td>
+                  <td>Stand-up Pouches</td>
+                  <td>Jan 8, 2025</td>
+                  <td><span class="status-badge status-badge--delivered">Delivered</span></td>
+                  <td style="font-weight:600;">$156.00</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600; color:var(--dark-brown);">#ORD-2025-004</td>
+                  <td>Shipping Tubes</td>
+                  <td>Jan 5, 2025</td>
+                  <td><span class="status-badge status-badge--pending">Pending</span></td>
+                  <td style="font-weight:600;">$72.00</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600; color:var(--dark-brown);">#ORD-2024-095</td>
+                  <td>Eco-Friendly Mailers</td>
+                  <td>Dec 28, 2024</td>
+                  <td><span class="status-badge status-badge--delivered">Delivered</span></td>
+                  <td style="font-weight:600;">$320.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+
+      // Auth guard
+      Auth.checkAuth('user');
+
+      // Update user name
+      const auth = Auth.get();
+      if (auth.name) {
+        document.querySelector('.dashboard__topbar-avatar').textContent = auth.name.charAt(0).toUpperCase();
+        document.querySelector('.dashboard__topbar-profile span').textContent = auth.name;
+      }
+
+      // Stats counter animation
+      document.querySelectorAll('[data-count]').forEach(el => {
+        const target = parseInt(el.dataset.count);
+        let current = 0;
+        const increment = target / 30;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            el.textContent = target;
+            clearInterval(timer);
+          } else {
+            el.textContent = Math.floor(current);
+          }
+        }, 50);
+      });
+
+      // Mobile sidebar toggle
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+      const setSidebarState = (isOpen) => {
+        sidebar?.classList.toggle('open', isOpen);
+        sidebarBackdrop?.classList.toggle('open', isOpen);
+        sidebarToggle?.setAttribute('aria-expanded', String(isOpen));
+        sidebarToggle?.setAttribute('aria-label', isOpen ? 'Close dashboard menu' : 'Open dashboard menu');
+
+        const toggleIcon = sidebarToggle?.querySelector('i');
+        if (toggleIcon) {
+          toggleIcon.outerHTML = `<i data-lucide="${isOpen ? 'x' : 'menu'}" style="width:24px;height:24px;"></i>`;
+          lucide.createIcons();
+        }
+      };
+
+      sidebarToggle?.addEventListener('click', () => {
+        const isOpen = sidebar?.classList.contains('open');
+        setSidebarState(!isOpen);
+      });
+
+      sidebarBackdrop?.addEventListener('click', () => setSidebarState(false));
+
+      sidebar?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 991) {
+            setSidebarState(false);
+          }
+        });
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 991) {
+          setSidebarState(false);
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          setSidebarState(false);
+        }
+      });
+
+      setSidebarState(false);
+    });
+  </script>
+</body>
+</html>

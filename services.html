@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services — Stackly</title>
+  <meta name="description" content="Comprehensive packaging services: custom design, branded boxes, eco-friendly solutions, bulk orders, and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .service-detail { padding: 80px 0; }
+    .service-detail:nth-child(even) { background: var(--cream); }
+    .service-detail__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .service-detail__image { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); }
+    .service-detail__image img { width: 100%; height: auto; }
+    .service-detail__features { margin-top: 24px; }
+    .service-detail__feature { display: flex; align-items: center; gap: 12px; padding: 8px 0; font-size: 16px; color: var(--gray-500); }
+    .service-detail__feature i { color: var(--green); flex-shrink: 0; }
+
+    .process { background: var(--white); padding: 120px 0; }
+    .process__steps { display: flex; gap: 32px; position: relative; }
+    .process__steps::before { content: ''; position: absolute; top: 40px; left: 60px; right: 60px; height: 3px; background: var(--gray-200); z-index: 0; }
+    .process__step { flex: 1; text-align: center; position: relative; z-index: 1; }
+    .process__step-number { width: 80px; height: 80px; border-radius: 50%; background: var(--blue-primary); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 32px; font-weight: 700; margin: 0 auto 24px; box-shadow: 0 4px 16px rgba(74,144,217,0.3); }
+    .process__step-title { font-size: 20px; font-weight: 600; color: var(--dark-brown); margin-bottom: 12px; }
+    .process__step-text { font-size: 15px; color: var(--gray-500); line-height: 1.7; }
+
+    .cta-banner { background: var(--blue-primary); padding: 100px 0; text-align: center; color: var(--white); position: relative; overflow: hidden; }
+    .cta-banner__pattern { position: absolute; inset: 0; opacity: 0.08; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+    .cta-banner__content { position: relative; z-index: 1; }
+    .cta-banner__title { font-family: var(--font-display); font-size: 48px; font-weight: 700; margin-bottom: 16px; }
+    .cta-banner__text { font-size: 18px; opacity: 0.9; margin-bottom: 32px; }
+
+    @media (max-width: 991px) {
+      .service-detail__grid { grid-template-columns: 1fr; }
+      .service-detail__image { max-width: 600px; margin: 0 auto; }
+      .process__steps { flex-direction: column; }
+      .process__steps::before { display: none; }
+      .process__step { display: flex; text-align: left; gap: 24px; align-items: flex-start; }
+      .process__step-number { flex-shrink: 0; margin: 0; }
+    }
+    @media (max-width: 767px) {
+      .cta-banner__title { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-container"></div>
+
+  <!-- Hero -->
+  <section class="hero hero--small">
+    <div class="hero__content container">
+      <h1 class="hero__title" data-split-text>Our Services</h1>
+      <p class="hero__subtitle">Everything you need for exceptional packaging</p>
+    </div>
+    <div class="hero__wave">
+      <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Service Details -->
+  <section class="service-detail">
+    <div class="container">
+      <div class="service-detail__grid">
+        <div class="service-detail__image animate-in">
+          <img src="assets/images/service-design.webp" alt="Custom packaging design" loading="lazy">
+        </div>
+        <div class="animate-in stagger-1">
+          <p class="overline">01</p>
+          <h2 class="section-title" style="font-size:36px; margin-bottom:16px;">Custom Packaging Design</h2>
+          <p class="body-text" style="margin-bottom:20px;">Bespoke packaging designs that reflect your brand identity. Our designers create unique solutions from concept to production-ready artwork, ensuring your packaging stands out on the shelf.</p>
+          <ul class="service-detail__features">
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Full design conceptualization</li>
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> 3D mockups and prototypes</li>
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Production-ready artwork</li>
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Unlimited revisions</li>
+          </ul>
+          <a href="contact.html" class="btn btn--primary" style="margin-top:24px;">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-detail">
+    <div class="container">
+      <div class="service-detail__grid">
+        <div class="animate-in" style="order:2;">
+          <p class="overline">02</p>
+          <h2 class="section-title" style="font-size:36px; margin-bottom:16px;">Branded Boxes & Mailers</h2>
+          <p class="body-text" style="margin-bottom:20px;">High-quality printed boxes and mailers with your logo and brand colors. Perfect for e-commerce and retail presentations that create a memorable unboxing experience.</p>
+          <ul class="service-detail__features">
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Full-color printing</li>
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Custom sizes available</li>
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Premium materials</li>
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Inside print options</li>
+          </ul>
+          <a href="contact.html" class="btn btn--primary" style="margin-top:24px;">Get a Quote</a>
+        </div>
+        <div class="service-detail__image animate-in stagger-1" style="order:1;">
+          <img src="assets/images/service-branded.webp" alt="Branded boxes" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-detail">
+    <div class="container">
+      <div class="service-detail__grid">
+        <div class="service-detail__image animate-in">
+          <img src="assets/images/service-eco.webp" alt="Eco-friendly packaging" loading="lazy">
+        </div>
+        <div class="animate-in stagger-1">
+          <p class="overline">03</p>
+          <h2 class="section-title" style="font-size:36px; margin-bottom:16px;">Eco-Friendly Solutions</h2>
+          <p class="body-text" style="margin-bottom:20px;">Sustainable packaging options using recyclable, biodegradable, and compostable materials. Good for your brand, great for the planet. Join the green revolution.</p>
+          <ul class="service-detail__features">
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Recyclable materials</li>
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Compostable mailers</li>
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Soy-based inks</li>
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Carbon-neutral shipping</li>
+          </ul>
+          <a href="contact.html" class="btn btn--primary" style="margin-top:24px;">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-detail">
+    <div class="container">
+      <div class="service-detail__grid">
+        <div class="animate-in" style="order:2;">
+          <p class="overline">04</p>
+          <h2 class="section-title" style="font-size:36px; margin-bottom:16px;">Bulk Order Fulfillment</h2>
+          <p class="body-text" style="margin-bottom:20px;">From hundreds to millions of units, we handle bulk orders with precision and efficiency. Warehousing and logistics support included for seamless operations.</p>
+          <ul class="service-detail__features">
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Volume discounts</li>
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Inventory management</li>
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Just-in-time delivery</li>
+            <li class="service-detail__feature"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> Quality control systems</li>
+          </ul>
+          <a href="contact.html" class="btn btn--primary" style="margin-top:24px;">Get a Quote</a>
+        </div>
+        <div class="service-detail__image animate-in stagger-1" style="order:1;">
+          <img src="assets/images/service-bulk.webp" alt="Bulk order fulfillment" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="process">
+    <div class="container">
+      <div class="section-header animate-in">
+        <p class="overline section-header__overline">How It Works</p>
+        <h2 class="section-title section-header__title">Our Process</h2>
+      </div>
+      <div class="process__steps">
+        <div class="process__step animate-in stagger-1">
+          <div class="process__step-number">1</div>
+          <div>
+            <h3 class="process__step-title">Consult</h3>
+            <p class="process__step-text">Share your vision with our team. We'll discuss your brand, product, and packaging goals.</p>
+          </div>
+        </div>
+        <div class="process__step animate-in stagger-2">
+          <div class="process__step-number">2</div>
+          <div>
+            <h3 class="process__step-title">Design</h3>
+            <p class="process__step-text">Our designers create custom concepts and mockups for your approval.</p>
+          </div>
+        </div>
+        <div class="process__step animate-in stagger-3">
+          <div class="process__step-number">3</div>
+          <div>
+            <h3 class="process__step-title">Produce</h3>
+            <p class="process__step-text">Once approved, we manufacture your packaging with precision and care.</p>
+          </div>
+        </div>
+        <div class="process__step animate-in stagger-4">
+          <div class="process__step-number">4</div>
+          <div>
+            <h3 class="process__step-title">Deliver</h3>
+            <p class="process__step-text">Your packaging is shipped to your door, ready to impress your customers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <div class="cta-banner__pattern"></div>
+    <div class="cta-banner__content container">
+      <h2 class="cta-banner__title" data-split-text>Ready to Get Started?</h2>
+      <p class="cta-banner__text">Let's create packaging that tells your brand story</p>
+      <a href="contact.html" class="btn btn--white btn--lg">Request a Free Quote</a>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

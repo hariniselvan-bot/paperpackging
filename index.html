@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stackly — Premium Packaging Solutions</title>
+  <meta name="description" content="Premium packaging solutions for businesses that care about quality and sustainability. Custom boxes, eco-friendly mailers, branded packaging.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    /* Homepage Specific Styles */
+    .hero { padding-top: 80px; }
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 45% 55%;
+      gap: 40px;
+      align-items: center;
+      min-height: calc(100vh - 80px);
+    }
+    .hero__badge { margin-bottom: 24px; }
+    .hero__headline {
+      font-family: var(--font-display);
+      font-size: 72px;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--espresso);
+      margin-bottom: 20px;
+    }
+    .hero__headline span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(40px) rotateX(20deg);
+      animation: charReveal 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+    }
+    @keyframes charReveal {
+      to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+    }
+    .hero__price {
+      font-size: 20px;
+      color: var(--brown);
+      margin-bottom: 32px;
+    }
+    .hero__price .old { text-decoration: line-through; opacity: 0.7; }
+    .hero__buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero__visual {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero__visual img {
+      width: 100%;
+      max-width: 700px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-xl);
+      animation: heroFloat 4s ease-in-out infinite alternate;
+    }
+    @keyframes heroFloat {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-12px) rotate(1deg); }
+    }
+
+    /* Categories */
+    .categories { background: var(--white); padding: 100px 0; }
+    .categories__track { display: flex; gap: 40px; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 20px 0; }
+    .categories__track::-webkit-scrollbar { display: none; }
+    .category-card { flex-shrink: 0; width: 200px; text-align: center; scroll-snap-align: start; }
+    .category-card__circle { width: 160px; height: 160px; border-radius: 50%; overflow: hidden; margin: 0 auto 16px; border: 3px solid var(--gray-200); transition: all var(--transition-slow); }
+    .category-card:hover .category-card__circle { border-color: var(--blue-primary); transform: scale(1.05); }
+    .category-card__circle img { width: 100%; height: 100%; object-fit: cover; }
+    .category-card__name { font-size: 18px; font-weight: 600; color: var(--dark-brown); margin-bottom: 8px; }
+    .category-card__icon { color: var(--blue-primary); display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--blue-primary); transition: all var(--transition-base); }
+    .category-card:hover .category-card__icon { background: var(--blue-primary); color: var(--white); }
+
+    /* About Preview */
+    .about-preview { background: var(--gradient-warm); padding: 120px 0; }
+    .about-preview__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-preview__image { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-xl); }
+    .about-preview__image img { width: 100%; height: auto; }
+    .about-preview__stats { display: flex; gap: 40px; margin: 32px 0; }
+    .about-preview__stat-number { font-family: var(--font-display); font-size: 36px; font-weight: 700; color: var(--blue-primary); }
+    .about-preview__stat-label { font-size: 14px; color: var(--gray-400); }
+
+    /* Services */
+    .services { background: var(--white); padding: 120px 0; }
+    .services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+
+    /* Pricing */
+    .pricing { background: linear-gradient(180deg, var(--cream) 0%, var(--white) 100%); padding: 120px 0; }
+    .pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; align-items: start; }
+
+    /* FAQ */
+    .faq { background: var(--white); padding: 120px 0; }
+    .faq__grid { display: grid; grid-template-columns: 35% 65%; gap: 64px; align-items: start; }
+
+    /* Blog */
+    .blog { background: var(--cream); padding: 120px 0; }
+    .blog__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+
+    /* Responsive */
+    @media (max-width: 1199px) {
+      .hero__headline { font-size: 56px; }
+      .services__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 991px) {
+      .hero__grid { grid-template-columns: 1fr; text-align: center; }
+      .hero__visual { order: -1; }
+      .hero__visual img { max-width: 500px; }
+      .hero__buttons { justify-content: center; }
+      .about-preview__grid { grid-template-columns: 1fr; }
+      .about-preview__image { max-width: 600px; margin: 0 auto; }
+      .faq__grid { grid-template-columns: 1fr; }
+      .pricing__grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+      .blog__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 767px) {
+      .hero { padding-top: 70px; }
+      .hero__headline { font-size: 40px; }
+      .services__grid { grid-template-columns: 1fr; }
+      .blog__grid { grid-template-columns: 1fr; }
+      .about-preview__stats { gap: 24px; }
+    }
+    @media (max-width: 479px) {
+      .hero__headline { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-container"></div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <div class="badge hero__badge animate-in">Limited Time Offer — Save 30% on the Full Combo Set</div>
+        <h1 class="hero__headline" data-split-text>Premium Packaging. Perfectly Delivered.</h1>
+        <p class="hero__price animate-in stagger-3">Now Only <strong>$69.99</strong> <span class="old">(Regular Price: $99.99)</span></p>
+        <div class="hero__buttons animate-in stagger-4">
+          <a href="#pricing" class="btn btn--outline btn--sm">Save 30% Off Code: SAVE30</a>
+          <a href="#categories" class="btn btn--primary">Shop Now <i data-lucide="arrow-right" style="width:18px;height:18px;"></i></a>
+        </div>
+      </div>
+      <div class="hero__visual animate-in stagger-1" data-parallax="0.05">
+        <img src="assets/images/hero-products.webp" alt="Premium packaging products collection" loading="eager">
+      </div>
+    </div>
+    <div class="hero__wave">
+      <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories" id="categories">
+    <div class="container">
+      <div class="section-header animate-in">
+        <h2 class="section-title">Categories Features</h2>
+      </div>
+      <div class="carousel">
+        <div class="categories__track" id="categoryTrack">
+          <div class="category-card animate-in stagger-1">
+            <div class="category-card__circle"><img src="assets/images/cat-pouches.webp" alt="Pouches" loading="lazy"></div>
+            <p class="category-card__name">Pouches</p>
+            <span class="category-card__icon"><i data-lucide="plus" style="width:16px;height:16px;"></i></span>
+          </div>
+          <div class="category-card animate-in stagger-2">
+            <div class="category-card__circle"><img src="assets/images/cat-containers.webp" alt="Containers" loading="lazy"></div>
+            <p class="category-card__name">Containers</p>
+            <span class="category-card__icon"><i data-lucide="plus" style="width:16px;height:16px;"></i></span>
+          </div>
+          <div class="category-card animate-in stagger-3">
+            <div class="category-card__circle"><img src="assets/images/cat-takeout.webp" alt="Takeout Packaging" loading="lazy"></div>
+            <p class="category-card__name">Takeout Packaging</p>
+            <span class="category-card__icon"><i data-lucide="plus" style="width:16px;height:16px;"></i></span>
+          </div>
+          <div class="category-card animate-in stagger-4">
+            <div class="category-card__circle"><img src="assets/images/cat-boxes.webp" alt="Boxes" loading="lazy"></div>
+            <p class="category-card__name">Boxes</p>
+            <span class="category-card__icon"><i data-lucide="plus" style="width:16px;height:16px;"></i></span>
+          </div>
+          <div class="category-card animate-in stagger-5">
+            <div class="category-card__circle"><img src="assets/images/cat-bags.webp" alt="Bags" loading="lazy"></div>
+            <p class="category-card__name">Bags</p>
+            <span class="category-card__icon"><i data-lucide="plus" style="width:16px;height:16px;"></i></span>
+          </div>
+          <div class="category-card animate-in">
+            <div class="category-card__circle"><img src="assets/images/cat-accessories.webp" alt="Accessories" loading="lazy"></div>
+            <p class="category-card__name">Accessories</p>
+            <span class="category-card__icon"><i data-lucide="plus" style="width:16px;height:16px;"></i></span>
+          </div>
+        </div>
+        <div class="carousel__dots" id="categoryDots">
+          <button class="carousel__dot active" data-index="0"></button>
+          <button class="carousel__dot" data-index="1"></button>
+          <button class="carousel__dot" data-index="2"></button>
+          <button class="carousel__dot" data-index="3"></button>
+          <button class="carousel__dot" data-index="4"></button>
+          <button class="carousel__dot" data-index="5"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Preview Section -->
+  <section class="about-preview" id="about">
+    <div class="container about-preview__grid">
+      <div class="about-preview__image animate-in">
+        <img src="assets/images/about-lifestyle.webp" alt="Premium packaging lifestyle" loading="lazy">
+      </div>
+      <div class="about-preview__content">
+        <p class="overline animate-in">About Stackly</p>
+        <h2 class="section-title animate-in stagger-1">Crafting Packaging Excellence Since 2010</h2>
+        <p class="body-text animate-in stagger-2">We believe great packaging tells your brand's story before the product is even revealed. Our team of designers and engineers work tirelessly to create packaging solutions that are beautiful, functional, and sustainable. From custom boxes to eco-friendly mailers, we help businesses make unforgettable first impressions.</p>
+        <div class="about-preview__stats animate-in stagger-3">
+          <div>
+            <p class="about-preview__stat-number">15K+</p>
+            <p class="about-preview__stat-label">Happy Clients</p>
+          </div>
+          <div>
+            <p class="about-preview__stat-number">500+</p>
+            <p class="about-preview__stat-label">Products</p>
+          </div>
+          <div>
+            <p class="about-preview__stat-number">50+</p>
+            <p class="about-preview__stat-label">Countries Served</p>
+          </div>
+        </div>
+        <a href="about.html" class="btn btn--outline-blue animate-in stagger-4">Learn More About Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header animate-in">
+        <p class="overline section-header__overline">What We Offer</p>
+        <h2 class="section-title section-header__title">Our Services</h2>
+        <p class="section-header__subtitle">Comprehensive packaging solutions tailored to your business needs</p>
+      </div>
+      <div class="services__grid">
+        <div class="card animate-in stagger-1">
+          <div class="card__icon"><i data-lucide="palette" style="width:28px;height:28px;"></i></div>
+          <h3 class="card-title card__title">Custom Packaging Design</h3>
+          <p class="card__text">Bespoke packaging designs that reflect your brand identity. Our designers create unique solutions from concept to production-ready artwork.</p>
+          <a href="services.html" class="card__link">Learn More <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+        </div>
+        <div class="card animate-in stagger-2">
+          <div class="card__icon"><i data-lucide="package" style="width:28px;height:28px;"></i></div>
+          <h3 class="card-title card__title">Branded Boxes & Mailers</h3>
+          <p class="card__text">High-quality printed boxes and mailers with your logo and brand colors. Perfect for e-commerce and retail presentations.</p>
+          <a href="services.html" class="card__link">Learn More <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+        </div>
+        <div class="card animate-in stagger-3">
+          <div class="card__icon"><i data-lucide="leaf" style="width:28px;height:28px;"></i></div>
+          <h3 class="card-title card__title">Eco-Friendly Solutions</h3>
+          <p class="card__text">Sustainable packaging options using recyclable, biodegradable, and compostable materials. Good for your brand, great for the planet.</p>
+          <a href="services.html" class="card__link">Learn More <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+        </div>
+        <div class="card animate-in stagger-4">
+          <div class="card__icon"><i data-lucide="truck" style="width:28px;height:28px;"></i></div>
+          <h3 class="card-title card__title">Bulk Order Fulfillment</h3>
+          <p class="card__text">From hundreds to millions of units, we handle bulk orders with precision and efficiency. Warehousing and logistics support included.</p>
+          <a href="services.html" class="card__link">Learn More <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+        </div>
+        <div class="card animate-in stagger-5">
+          <div class="card__icon"><i data-lucide="message-circle" style="width:28px;height:28px;"></i></div>
+          <h3 class="card-title card__title">Design Consultation</h3>
+          <p class="card__text">Expert guidance on packaging strategy, material selection, and cost optimization. Free consultation for orders over $5,000.</p>
+          <a href="services.html" class="card__link">Learn More <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+        </div>
+        <div class="card animate-in">
+          <div class="card__icon"><i data-lucide="zap" style="width:28px;height:28px;"></i></div>
+          <h3 class="card-title card__title">Rush Production</h3>
+          <p class="card__text">Tight deadline? Our rush production service delivers quality packaging in as little as 5 business days.</p>
+          <a href="services.html" class="card__link">Learn More <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header animate-in">
+        <p class="overline section-header__overline">Pricing Plans</p>
+        <h2 class="section-title section-header__title">Choose Your Plan</h2>
+        <p class="section-header__subtitle">Flexible pricing for businesses of all sizes</p>
+      </div>
+      <div class="pricing__grid">
+        <div class="pricing-card animate-in stagger-1">
+          <p class="pricing-card__name">Starter</p>
+          <p class="pricing-card__price">$49</p>
+          <p class="pricing-card__period">per month</p>
+          <div class="pricing-card__divider"></div>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> Up to 100 units/month</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> 3 design templates</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> Standard materials</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> Email support</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> 10-day turnaround</li>
+          </ul>
+          <button class="btn btn--outline-blue btn--full" onclick="showToast('Coming soon!', 'info')">Get Started</button>
+        </div>
+        <div class="pricing-card pricing-card--featured animate-in stagger-2">
+          <div class="pricing-card__badge">Most Popular</div>
+          <p class="pricing-card__name">Professional</p>
+          <p class="pricing-card__price">$149</p>
+          <p class="pricing-card__period">per month</p>
+          <div class="pricing-card__divider"></div>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> Up to 500 units/month</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> Unlimited designs</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> Premium materials</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> Priority support</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> 5-day turnaround</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> Free shipping</li>
+          </ul>
+          <button class="btn btn--primary btn--full" onclick="showToast('Coming soon!', 'info')">Get Started</button>
+        </div>
+        <div class="pricing-card animate-in stagger-3">
+          <p class="pricing-card__name">Enterprise</p>
+          <p class="pricing-card__price" style="font-size:36px;">Custom</p>
+          <p class="pricing-card__period">tailored for you</p>
+          <div class="pricing-card__divider"></div>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> Unlimited units</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> Dedicated account manager</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> Custom materials</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> 24/7 phone support</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> Same-day turnaround</li>
+            <li class="pricing-card__feature"><i data-lucide="check" style="width:18px;height:18px;"></i> White-label options</li>
+          </ul>
+          <a href="contact.html" class="btn btn--outline-blue btn--full">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq" id="faq">
+    <div class="container faq__grid">
+      <div>
+        <p class="overline animate-in">FAQ</p>
+        <h2 class="section-title animate-in stagger-1" style="margin-bottom:16px;">Frequently Asked Questions</h2>
+        <p class="body-text animate-in stagger-2" style="margin-bottom:24px;">Can't find what you're looking for? Reach out to our support team.</p>
+        <a href="contact.html" class="btn btn--outline-blue animate-in stagger-3">Contact Support</a>
+      </div>
+      <div class="accordion animate-in stagger-2" id="faqAccordion">
+        <div class="accordion__item open">
+          <button class="accordion__trigger">
+            What is your minimum order quantity?
+            <i data-lucide="chevron-down" class="accordion__icon" style="width:20px;height:20px;"></i>
+          </button>
+          <div class="accordion__content">
+            <p class="accordion__answer">Our minimum order quantity is 50 units for most products. However, we offer sample packs starting at just 10 units for you to evaluate quality before placing a larger order.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger">
+            How long does production take?
+            <i data-lucide="chevron-down" class="accordion__icon" style="width:20px;height:20px;"></i>
+          </button>
+          <div class="accordion__content">
+            <p class="accordion__answer">Standard production time is 7-10 business days. Rush orders can be completed in as little as 3-5 business days for an additional fee.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger">
+            Do you offer eco-friendly packaging options?
+            <i data-lucide="chevron-down" class="accordion__icon" style="width:20px;height:20px;"></i>
+          </button>
+          <div class="accordion__content">
+            <p class="accordion__answer">Yes! We have a wide range of sustainable packaging options including recyclable cardboard, compostable mailers, biodegradable fillers, and soy-based inks.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger">
+            Can I see a sample before ordering?
+            <i data-lucide="chevron-down" class="accordion__icon" style="width:20px;height:20px;"></i>
+          </button>
+          <div class="accordion__content">
+            <p class="accordion__answer">Absolutely. We offer free sample kits for businesses, and you can also order individual samples of any product for a small fee.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger">
+            Do you ship internationally?
+            <i data-lucide="chevron-down" class="accordion__icon" style="width:20px;height:20px;"></i>
+          </button>
+          <div class="accordion__content">
+            <p class="accordion__answer">We ship to over 50 countries worldwide. International shipping rates and delivery times vary by location.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger">
+            What file formats do you accept for designs?
+            <i data-lucide="chevron-down" class="accordion__icon" style="width:20px;height:20px;"></i>
+          </button>
+          <div class="accordion__content">
+            <p class="accordion__answer">We accept AI, PDF, PSD, EPS, and high-resolution PNG/JPEG files. Our design team can also help convert your artwork if needed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Preview Section -->
+  <section class="blog" id="blog">
+    <div class="container">
+      <div class="section-header animate-in">
+        <p class="overline section-header__overline">From the Blog</p>
+        <h2 class="section-title section-header__title">Latest Insights</h2>
+        <p class="section-header__subtitle">Tips, trends, and inspiration for better packaging</p>
+      </div>
+      <div class="blog__grid">
+        <article class="blog-card animate-in stagger-1">
+          <img src="assets/images/blog-1.webp" alt="Packaging trends" class="blog-card__image" loading="lazy">
+          <div class="blog-card__content">
+            <span class="blog-card__tag">Trends</span>
+            <h3 class="blog-card__title">10 Packaging Trends to Watch in 2025</h3>
+            <p class="blog-card__excerpt">From minimalist designs to smart packaging, discover what's shaping the industry this year and beyond.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">Jan 15, 2025</span>
+              <a href="404.html" class="blog-card__read">Read More <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+            </div>
+          </div>
+        </article>
+        <article class="blog-card animate-in stagger-2">
+          <img src="assets/images/blog-2.webp" alt="Sustainable packaging" class="blog-card__image" loading="lazy">
+          <div class="blog-card__content">
+            <span class="blog-card__tag">Sustainability</span>
+            <h3 class="blog-card__title">The Ultimate Guide to Sustainable Packaging</h3>
+            <p class="blog-card__excerpt">Learn how to reduce your environmental impact without compromising on quality or brand appeal.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">Jan 10, 2025</span>
+              <a href="404.html" class="blog-card__read">Read More <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+            </div>
+          </div>
+        </article>
+        <article class="blog-card animate-in stagger-3">
+          <img src="assets/images/blog-3.webp" alt="Packaging design" class="blog-card__image" loading="lazy">
+          <div class="blog-card__content">
+            <span class="blog-card__tag">Design</span>
+            <h3 class="blog-card__title">How to Design Packaging That Sells</h3>
+            <p class="blog-card__excerpt">Psychology-backed design tips to make your products irresistible on the shelf and online.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">Jan 5, 2025</span>
+              <a href="404.html" class="blog-card__read">Read More <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="text-center animate-in" style="margin-top:48px;">
+        <a href="blog.html" class="btn btn--outline-blue">View All Articles</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Homepage-specific scripts
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Lucide icons
+      lucide.createIcons();
+
+      // Accordion
+      const accordionItems = document.querySelectorAll('.accordion__item');
+      accordionItems.forEach(item => {
+        const trigger = item.querySelector('.accordion__trigger');
+        trigger.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          // Close all
+          accordionItems.forEach(i => i.classList.remove('open'));
+          // Open clicked if wasn't open
+          if (!isOpen) item.classList.add('open');
+        });
+      });
+
+      // Category carousel dots
+      const dots = document.querySelectorAll('#categoryDots .carousel__dot');
+      const track = document.getElementById('categoryTrack');
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const index = parseInt(dot.dataset.index);
+          const cardWidth = 200 + 40; // card width + gap
+          track.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+          dots.forEach(d => d.classList.remove('active'));
+          dot.classList.add('active');
+        });
+      });
+
+      // Update active dot on scroll
+      track.addEventListener('scroll', () => {
+        const cardWidth = 200 + 40;
+        const index = Math.round(track.scrollLeft / cardWidth);
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      });
+    });
+  </script>
+</body>
+</html>

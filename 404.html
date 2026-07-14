@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — Stackly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .error-page { background: var(--cream); }
+    .error-page__code { animation: floatSlow 6s ease-in-out infinite alternate; }
+    .error-page__icon { animation: tilt 4s ease-in-out infinite alternate; }
+    @keyframes tilt { 0% { transform: rotate(-5deg); } 100% { transform: rotate(5deg); } }
+  </style>
+</head>
+<body>
+  <div class="error-page">
+    <div class="container" style="text-align:center;">
+      <p class="error-page__code">404</p>
+      <div class="error-page__icon" style="margin-bottom:24px;">
+        <i data-lucide="package-x" style="width:120px;height:120px;"></i>
+      </div>
+      <h1 class="error-page__title">Page Not Found</h1>
+      <p class="error-page__text">The page you're looking for doesn't exist or has been moved. Check the URL or navigate back to our homepage.</p>
+      <div class="error-page__actions">
+        <a href="index.html" class="btn btn--primary">Go Home</a>
+        <button class="btn btn--outline" type="button" onclick="if (window.history.length > 1) { window.history.back(); } else { window.location.href = 'index.html'; }">Go Back</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

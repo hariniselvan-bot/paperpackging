@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — Stackly</title>
+  <meta name="description" content="Create your Stackly account to start ordering premium packaging solutions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <div class="auth-page">
+    <!-- Left Image -->
+    <div class="auth__image" style="background-image:url('assets/images/hero-products.webp');">
+      <div class="auth__image-overlay"></div>
+      <div class="auth__image-content">
+        <span class="auth__logo-frame"><img src="assets/images/logo.webp" class="auth__logo-image" alt="Stackly"></span>
+        <h2 style="font-family:var(--font-display); font-size:32px; font-weight:700; margin-bottom:12px;">Join Stackly</h2>
+        <p style="font-size:16px; opacity:0.8; line-height:1.6;">Create an account to access premium packaging solutions, track orders, and get personalized support.</p>
+      </div>
+    </div>
+
+    <!-- Right Form -->
+    <div class="auth__form-section">
+      <div class="auth__form-wrap">
+        <h1 class="auth__form-title">Create Account</h1>
+        <p class="auth__form-subtitle">Join Stackly for premium packaging solutions</p>
+
+        <form id="registerForm" novalidate>
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <div class="form-input-icon">
+              <i data-lucide="user" class="form-input-icon__prefix" style="width:18px;height:18px;"></i>
+              <input type="text" name="fullname" class="form-input" placeholder="John Doe" required>
+            </div>
+            <span class="form-error">Please enter your full name</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <div class="form-input-icon">
+              <i data-lucide="mail" class="form-input-icon__prefix" style="width:18px;height:18px;"></i>
+              <input type="email" name="email" class="form-input" placeholder="john@company.com" required>
+            </div>
+            <span class="form-error">Please enter a valid email</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <div class="form-input-icon">
+              <i data-lucide="phone" class="form-input-icon__prefix" style="width:18px;height:18px;"></i>
+              <input type="tel" name="phone" class="form-input" placeholder="+1 (555) 123-4567">
+            </div>
+            <span class="form-error">Please enter a valid phone number</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Company (Optional)</label>
+            <div class="form-input-icon">
+              <i data-lucide="building" class="form-input-icon__prefix" style="width:18px;height:18px;"></i>
+              <input type="text" name="company" class="form-input" placeholder="Your Company">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="form-input-icon">
+              <i data-lucide="lock" class="form-input-icon__prefix" style="width:18px;height:18px;"></i>
+              <input type="password" name="password" class="form-input" placeholder="Create a password" required id="regPassword">
+              <button type="button" class="form-input-icon__suffix toggle-password" style="background:none; padding:0;">
+                <i data-lucide="eye" style="width:18px;height:18px;"></i>
+              </button>
+            </div>
+            <div class="password-strength">
+              <div class="password-strength__bar">
+                <div class="password-strength__fill" id="passwordStrengthFill"></div>
+              </div>
+              <p class="password-strength__text" id="passwordStrengthText">Enter a password</p>
+            </div>
+            <span class="form-error">Password must be at least 8 characters</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Confirm Password</label>
+            <div class="form-input-icon">
+              <i data-lucide="lock" class="form-input-icon__prefix" style="width:18px;height:18px;"></i>
+              <input type="password" name="confirm_password" class="form-input" placeholder="Confirm your password" required>
+            </div>
+            <span class="form-error">Passwords do not match</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-checkbox">
+              <input type="checkbox" name="terms" required>
+              <span class="form-checkbox__text">I agree to the <a href="404.html">Terms of Service</a> and <a href="404.html">Privacy Policy</a></span>
+            </label>
+            <span class="form-error" style="margin-top:6px;">You must agree to the terms</span>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--full" id="registerBtn">Create Account</button>
+        </form>
+
+        <p class="auth__footer">Already have an account? <a href="login.html">Sign In</a></p>
+        <a href="index.html" class="btn btn--outline-blue btn--sm auth__home-link">Go Back Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+
+      // Toggle password visibility
+      document.querySelector('.toggle-password')?.addEventListener('click', function() {
+        const input = this.closest('.form-input-icon').querySelector('input');
+        const icon = this.querySelector('i');
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.setAttribute('data-lucide', 'eye-off');
+        } else {
+          input.type = 'password';
+          icon.setAttribute('data-lucide', 'eye');
+        }
+        lucide.createIcons();
+      });
+
+      // Password strength indicator
+      const passwordInput = document.getElementById('regPassword');
+      const strengthFill = document.getElementById('passwordStrengthFill');
+      const strengthText = document.getElementById('passwordStrengthText');
+
+      passwordInput?.addEventListener('input', (e) => {
+        const result = checkPasswordStrength(e.target.value);
+        strengthFill.className = 'password-strength__fill ' + result.level;
+        strengthFill.style.width = result.level === 'weak' ? '33%' : result.level === 'medium' ? '66%' : '100%';
+        strengthText.textContent = result.label;
+      });
+
+      // Register form
+      document.getElementById('registerForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const email = form.querySelector('[name="email"]').value;
+        const password = form.querySelector('[name="password"]').value;
+        const confirmPassword = form.querySelector('[name="confirm_password"]').value;
+        const terms = form.querySelector('[name="terms"]').checked;
+        const fullname = form.querySelector('[name="fullname"]').value;
+
+        // Validation
+        if (!fullname.trim()) {
+          showToast('Please enter your full name', 'error');
+          return;
+        }
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showToast('Please enter a valid email', 'error');
+          return;
+        }
+        if (password.length < 8) {
+          showToast('Password must be at least 8 characters', 'error');
+          return;
+        }
+        if (password !== confirmPassword) {
+          showToast('Passwords do not match', 'error');
+          return;
+        }
+        if (!terms) {
+          showToast('You must agree to the terms', 'error');
+          return;
+        }
+
+        // Simulate registration
+        const btn = document.getElementById('registerBtn');
+        btn.textContent = 'Creating account...';
+        btn.disabled = true;
+
+        setTimeout(() => {
+          Auth.login(email, 'user', fullname);
+          showToast('Account created successfully!', 'success');
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 500);
+        }, 1000);
+      });
+    });
+  </script>
+</body>
+</html>
