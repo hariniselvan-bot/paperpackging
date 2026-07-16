@@ -32,6 +32,18 @@
 
     .filter-bar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
     .filter-bar input, .filter-bar select { padding: 10px 16px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 14px; }
+    .admin-panel[hidden] { display: none; }
+    .admin-view__title { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--dark-brown); margin-bottom: 8px; }
+    .admin-view__intro { color: var(--gray-500); margin-bottom: 28px; }
+    .admin-message { display: flex; justify-content: space-between; gap: 24px; padding: 20px 24px; border-bottom: 1px solid var(--gray-200); }
+    .admin-message:last-child { border-bottom: 0; }
+    .admin-message p { margin-top: 6px; color: var(--gray-500); }
+    .admin-message time { color: var(--gray-400); font-size: 14px; white-space: nowrap; }
+    .admin-settings { display: grid; gap: 20px; max-width: 640px; padding: 28px; }
+    .admin-settings label { display: grid; gap: 8px; color: var(--dark-brown); font-size: 14px; font-weight: 500; }
+    .admin-settings input { padding: 12px; border: 1px solid var(--gray-300); border-radius: var(--radius-sm); font: inherit; }
+    .admin-settings .btn { justify-self: start; }
+    @media (max-width: 767px) { .admin-message { padding: 16px; gap: 12px; } .admin-settings { padding: 20px; } }
   </style>
 </head>
 <body>
@@ -44,13 +56,13 @@
         </a>
       </div>
       <nav class="dashboard__sidebar-nav">
-        <a href="admin-dashboard.html" class="dashboard__sidebar-link active"><i data-lucide="layout-dashboard"></i> Dashboard</a>
-        <a href="#users" class="dashboard__sidebar-link" onclick="showSection('users')"><i data-lucide="users"></i> Users</a>
-        <a href="#orders" class="dashboard__sidebar-link" onclick="showSection('orders')"><i data-lucide="clipboard-list"></i> Orders</a>
-        <a href="#products" class="dashboard__sidebar-link" onclick="showSection('products')"><i data-lucide="box"></i> Products</a>
-        <a href="#analytics" class="dashboard__sidebar-link" onclick="showSection('analytics')"><i data-lucide="bar-chart-2"></i> Analytics</a>
-        <a href="admin-dashboard.html" class="dashboard__sidebar-link"><i data-lucide="message-square"></i> Messages</a>
-        <a href="admin-dashboard.html" class="dashboard__sidebar-link"><i data-lucide="settings"></i> Settings</a>
+        <a href="#dashboard" class="dashboard__sidebar-link active" data-admin-view="dashboard"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+        <a href="#users" class="dashboard__sidebar-link" data-admin-view="users"><i data-lucide="users"></i> Users</a>
+        <a href="#orders" class="dashboard__sidebar-link" data-admin-view="orders"><i data-lucide="clipboard-list"></i> Orders</a>
+        <a href="#products" class="dashboard__sidebar-link" data-admin-view="products"><i data-lucide="box"></i> Products</a>
+        <a href="#analytics" class="dashboard__sidebar-link" data-admin-view="analytics"><i data-lucide="bar-chart-2"></i> Analytics</a>
+        <a href="#messages" class="dashboard__sidebar-link" data-admin-view="messages"><i data-lucide="message-square"></i> Messages</a>
+        <a href="#settings" class="dashboard__sidebar-link" data-admin-view="settings"><i data-lucide="settings"></i> Settings</a>
         <a href="admin-dashboard.html" class="dashboard__sidebar-link" onclick="Auth.logout(); return false;"><i data-lucide="log-out"></i> Logout</a>
       </nav>
       <div class="dashboard__sidebar-summary"><strong>Admin overview</strong><span>1,245 active users<br>8 open support tickets</span></div>
@@ -77,10 +89,10 @@
 
       <!-- Content -->
       <div class="dashboard__content">
-        <h1 style="font-family:var(--font-display); font-size:28px; font-weight:700; color:var(--dark-brown); margin-bottom:24px;">Admin Dashboard</h1>
+        <h1 class="admin-panel" data-admin-panel="dashboard" style="font-family:var(--font-display); font-size:28px; font-weight:700; color:var(--dark-brown); margin-bottom:24px;">Admin Dashboard</h1>
 
         <!-- Stats -->
-        <div class="dashboard__stats">
+        <div class="dashboard__stats admin-panel" data-admin-panel="dashboard">
           <div class="stat-card">
             <div class="stat-card__header">
               <span class="stat-card__title">Total Users</span>
@@ -116,7 +128,7 @@
         </div>
 
         <!-- Charts Row -->
-        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px; margin-bottom:32px;">
+        <div class="admin-panel" data-admin-panel="dashboard" style="display:grid; grid-template-columns: 2fr 1fr; gap:24px; margin-bottom:32px;">
           <!-- Revenue Chart -->
           <div class="dashboard__table-wrap" style="padding:24px;">
             <h3 style="font-size:18px; font-weight:600; color:var(--dark-brown); margin-bottom:20px;">Weekly Revenue</h3>
@@ -146,7 +158,7 @@
         </div>
 
         <!-- Users Table -->
-        <div class="dashboard__table-wrap" id="usersSection">
+        <div class="dashboard__table-wrap admin-panel" id="usersSection" data-admin-panel="users">
           <div class="dashboard__table-header">
             <h3 class="dashboard__table-title">Users Management</h3>
             <button class="btn btn--primary btn--sm" onclick="showToast('Add user feature coming soon!', 'info')"><i data-lucide="plus" style="width:14px;height:14px;"></i> Add User</button>
@@ -196,7 +208,7 @@
         </div>
 
         <!-- Recent Activity -->
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; margin-top:32px;">
+        <div class="admin-panel" data-admin-panel="dashboard" style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; margin-top:32px;">
           <div class="dashboard__table-wrap" style="padding:24px;">
             <h3 style="font-size:18px; font-weight:600; color:var(--dark-brown); margin-bottom:16px;">Recent Activity</h3>
             <div class="activity-item">
@@ -264,6 +276,37 @@
             </div>
           </div>
         </div>
+
+        <section class="admin-panel" data-admin-panel="orders" hidden>
+          <h1 class="admin-view__title">Orders</h1><p class="admin-view__intro">Review current production and delivery activity.</p>
+          <div class="dashboard__table-wrap"><div class="dashboard__table-header"><h3 class="dashboard__table-title">Recent Orders</h3></div><div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Order</th><th>Customer</th><th>Product</th><th>Status</th><th>Total</th></tr></thead><tbody>
+            <tr><td>#ORD-2025-006</td><td>Emily Johnson</td><td>Custom Mailers</td><td><span class="status-badge status-badge--processing">Processing</span></td><td>$420.00</td></tr>
+            <tr><td>#ORD-2025-005</td><td>Lisa Park</td><td>Kraft Paper Bags</td><td><span class="status-badge status-badge--shipped">Shipped</span></td><td>$185.00</td></tr>
+            <tr><td>#ORD-2025-004</td><td>David Smith</td><td>Shipping Tubes</td><td><span class="status-badge status-badge--pending">Pending</span></td><td>$72.00</td></tr>
+          </tbody></table></div></div>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="products" hidden>
+          <h1 class="admin-view__title">Products</h1><p class="admin-view__intro">Manage the packaging products available to customers.</p>
+          <div class="dashboard__table-wrap"><div class="dashboard__table-header"><h3 class="dashboard__table-title">Product Catalogue</h3><button class="btn btn--primary btn--sm" type="button" onclick="showToast('Product creation is ready to be connected.', 'info')">Add Product</button></div><div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Product</th><th>Category</th><th>Stock</th><th>Price from</th></tr></thead><tbody>
+            <tr><td>Custom Mailer Boxes</td><td>Boxes</td><td>In stock</td><td>$1.25</td></tr><tr><td>Eco-Friendly Mailers</td><td>Mailers</td><td>In stock</td><td>$0.85</td></tr><tr><td>Stand-up Pouches</td><td>Pouches</td><td>Low stock</td><td>$0.60</td></tr>
+          </tbody></table></div></div>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="analytics" hidden>
+          <h1 class="admin-view__title">Analytics</h1><p class="admin-view__intro">A snapshot of this month’s sales and customer performance.</p>
+          <div class="dashboard__stats"><div class="stat-card"><span class="stat-card__title">Monthly Revenue</span><p class="stat-card__value">$48.2k</p><span class="stat-card__change up">+12.5%</span></div><div class="stat-card"><span class="stat-card__title">Conversion Rate</span><p class="stat-card__value">4.8%</p><span class="stat-card__change up">+0.6%</span></div><div class="stat-card"><span class="stat-card__title">New Customers</span><p class="stat-card__value">56</p><span class="stat-card__change up">This month</span></div><div class="stat-card"><span class="stat-card__title">Support Tickets</span><p class="stat-card__value">8</p><span class="stat-card__change down">Open</span></div></div>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="messages" hidden>
+          <h1 class="admin-view__title">Messages</h1><p class="admin-view__intro">Customer and support conversations requiring attention.</p>
+          <div class="dashboard__table-wrap"><article class="admin-message"><div><strong>Shipping question from Emily Johnson</strong><p>Could you confirm the delivery date for order #ORD-2025-006?</p></div><time>10 min ago</time></article><article class="admin-message"><div><strong>Design proof approved</strong><p>Lisa Park approved the final proof for her paper bags.</p></div><time>1 hr ago</time></article><article class="admin-message"><div><strong>New support ticket</strong><p>David Smith needs assistance updating an order quantity.</p></div><time>3 hrs ago</time></article></div>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="settings" hidden>
+          <h1 class="admin-view__title">Settings</h1><p class="admin-view__intro">Update the administrator profile and notification preferences.</p>
+          <form class="dashboard__table-wrap admin-settings" onsubmit="event.preventDefault(); showToast('Admin settings saved.', 'success');"><label>Admin name<input id="adminSettingsName" type="text" required></label><label>Email address<input id="adminSettingsEmail" type="email" required></label><label><input type="checkbox" checked> Send notifications for new orders and support tickets</label><button class="btn btn--primary btn--sm" type="submit">Save Changes</button></form>
+        </section>
       </div>
     </main>
   </div>
@@ -282,7 +325,9 @@
       if (auth.name) {
         document.querySelector('.dashboard__topbar-avatar').textContent = auth.name.charAt(0).toUpperCase();
         document.querySelector('.dashboard__topbar-profile span').textContent = auth.name;
+        document.getElementById('adminSettingsName').value = auth.name;
       }
+      document.getElementById('adminSettingsEmail').value = auth.email || '';
 
       // Stats counter animation
       document.querySelectorAll('[data-count]').forEach(el => {
@@ -332,12 +377,38 @@
 
       sidebarBackdrop?.addEventListener('click', () => setSidebarState(false));
 
+      const showAdminView = (viewName) => {
+        const panel = document.querySelector(`[data-admin-panel="${viewName}"]`);
+        if (!panel) return;
+        document.querySelectorAll('[data-admin-panel]').forEach(item => {
+          item.hidden = item.dataset.adminPanel !== viewName;
+        });
+        sidebar?.querySelectorAll('[data-admin-view]').forEach(link => {
+          link.classList.toggle('active', link.dataset.adminView === viewName);
+        });
+        if (window.location.hash !== `#${viewName}`) window.location.hash = viewName;
+      };
+
       sidebar?.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (event) => {
+          if (link.dataset.adminView) {
+            event.preventDefault();
+            showAdminView(link.dataset.adminView);
+          }
           if (window.innerWidth <= 991) {
             setSidebarState(false);
           }
         });
+      });
+
+      const initialAdminView = window.location.hash.slice(1);
+      if (initialAdminView && document.querySelector(`[data-admin-panel="${initialAdminView}"]`)) {
+        showAdminView(initialAdminView);
+      }
+
+      window.addEventListener('hashchange', () => {
+        const viewName = window.location.hash.slice(1);
+        if (document.querySelector(`[data-admin-panel="${viewName}"]`)) showAdminView(viewName);
       });
 
       window.addEventListener('resize', () => {
