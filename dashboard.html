@@ -9,6 +9,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
+  <style>
+    .dashboard-view[hidden] { display: none; }
+    .dashboard-view__title { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--dark-brown); margin-bottom: 8px; }
+    .dashboard-view__intro { color: var(--gray-500); margin-bottom: 28px; }
+    .dashboard-view__cards { margin-bottom: 0; }
+    .dashboard-view__meta { color: var(--gray-500); margin: 18px 0; }
+    .dashboard-message { display: flex; justify-content: space-between; gap: 24px; padding: 20px 24px; border-bottom: 1px solid var(--gray-200); }
+    .dashboard-message:last-child { border-bottom: 0; }
+    .dashboard-message strong { color: var(--dark-brown); }
+    .dashboard-message p { color: var(--gray-500); margin-top: 6px; }
+    .dashboard-message time { color: var(--gray-400); font-size: 14px; white-space: nowrap; }
+    .dashboard-settings { display: grid; gap: 20px; max-width: 640px; padding: 28px; }
+    .dashboard-settings label { display: grid; gap: 8px; color: var(--dark-brown); font-size: 14px; font-weight: 500; }
+    .dashboard-settings input[type="text"], .dashboard-settings input[type="email"] { border: 1px solid var(--gray-300); border-radius: var(--radius-sm); padding: 12px; font: inherit; color: var(--dark-brown); }
+    .dashboard-settings__check { display: flex !important; align-items: center; gap: 10px; }
+    .dashboard-settings .btn { justify-self: start; }
+    @media (max-width: 767px) { .dashboard-message { padding: 16px; gap: 12px; } .dashboard-settings { padding: 20px; } }
+  </style>
 </head>
 <body>
   <div class="dashboard">
@@ -20,11 +38,11 @@
         </a>
       </div>
       <nav class="dashboard__sidebar-nav">
-        <a href="dashboard.html" class="dashboard__sidebar-link active"><i data-lucide="layout-dashboard"></i> Dashboard</a>
-        <a href="dashboard.html" class="dashboard__sidebar-link"><i data-lucide="shopping-bag"></i> My Orders</a>
-        <a href="dashboard.html" class="dashboard__sidebar-link"><i data-lucide="heart"></i> Saved Designs</a>
-        <a href="dashboard.html" class="dashboard__sidebar-link"><i data-lucide="message-square"></i> Messages</a>
-        <a href="dashboard.html" class="dashboard__sidebar-link"><i data-lucide="settings"></i> Settings</a>
+        <a href="#dashboard" class="dashboard__sidebar-link active" data-view="dashboard"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+        <a href="#orders" class="dashboard__sidebar-link" data-view="orders"><i data-lucide="shopping-bag"></i> My Orders</a>
+        <a href="#saved" class="dashboard__sidebar-link" data-view="saved"><i data-lucide="heart"></i> Saved Designs</a>
+        <a href="#messages" class="dashboard__sidebar-link" data-view="messages"><i data-lucide="message-square"></i> Messages</a>
+        <a href="#settings" class="dashboard__sidebar-link" data-view="settings"><i data-lucide="settings"></i> Settings</a>
         <a href="dashboard.html" class="dashboard__sidebar-link" onclick="Auth.logout(); return false;"><i data-lucide="log-out"></i> Logout</a>
       </nav>
       <div class="dashboard__sidebar-summary"><strong>Your workspace</strong><span>24 total orders<br>5 orders in progress</span></div>
@@ -51,6 +69,7 @@
 
       <!-- Content -->
       <div class="dashboard__content">
+        <section class="dashboard-view active" data-panel="dashboard">
         <h1 style="font-family:var(--font-display); font-size:28px; font-weight:700; color:var(--dark-brown); margin-bottom:24px;">Dashboard</h1>
 
         <!-- Stats -->
@@ -153,6 +172,52 @@
             </table>
           </div>
         </div>
+        </section>
+
+        <section class="dashboard-view" data-panel="orders" hidden>
+          <h1 class="dashboard-view__title">My Orders</h1>
+          <p class="dashboard-view__intro">Track every packaging order from production through delivery.</p>
+          <div class="dashboard__table-wrap">
+            <div class="dashboard__table-header"><h3 class="dashboard__table-title">All Orders</h3><a href="index.html#categories" class="btn btn--primary btn--sm">Place New Order</a></div>
+            <div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Order ID</th><th>Product</th><th>Ordered</th><th>Status</th><th>Amount</th></tr></thead><tbody>
+              <tr><td>#ORD-2025-001</td><td>Custom Mailer Boxes</td><td>Jan 12, 2025</td><td><span class="status-badge status-badge--shipped">Shipped</span></td><td>$245.00</td></tr>
+              <tr><td>#ORD-2025-002</td><td>Kraft Paper Bags</td><td>Jan 10, 2025</td><td><span class="status-badge status-badge--processing">Processing</span></td><td>$89.50</td></tr>
+              <tr><td>#ORD-2025-003</td><td>Stand-up Pouches</td><td>Jan 8, 2025</td><td><span class="status-badge status-badge--delivered">Delivered</span></td><td>$156.00</td></tr>
+              <tr><td>#ORD-2025-004</td><td>Shipping Tubes</td><td>Jan 5, 2025</td><td><span class="status-badge status-badge--pending">Pending</span></td><td>$72.00</td></tr>
+            </tbody></table></div>
+          </div>
+        </section>
+
+        <section class="dashboard-view" data-panel="saved" hidden>
+          <h1 class="dashboard-view__title">Saved Designs</h1>
+          <p class="dashboard-view__intro">Your saved packaging concepts, ready to revisit or order.</p>
+          <div class="dashboard__stats dashboard-view__cards">
+            <article class="stat-card"><div class="stat-card__header"><span class="stat-card__title">Coffee Mailer</span><div class="stat-card__icon stat-card__icon--blue"><i data-lucide="box"></i></div></div><p class="dashboard-view__meta">Custom Mailer Box</p><a href="index.html#categories" class="btn btn--outline-blue btn--sm">Continue Design</a></article>
+            <article class="stat-card"><div class="stat-card__header"><span class="stat-card__title">Spring Collection</span><div class="stat-card__icon stat-card__icon--red"><i data-lucide="palette"></i></div></div><p class="dashboard-view__meta">Branded Paper Bags</p><a href="index.html#categories" class="btn btn--outline-blue btn--sm">Continue Design</a></article>
+            <article class="stat-card"><div class="stat-card__header"><span class="stat-card__title">Daily Essentials</span><div class="stat-card__icon stat-card__icon--green"><i data-lucide="package"></i></div></div><p class="dashboard-view__meta">Eco-friendly Mailer</p><a href="index.html#categories" class="btn btn--outline-blue btn--sm">Continue Design</a></article>
+          </div>
+        </section>
+
+        <section class="dashboard-view" data-panel="messages" hidden>
+          <h1 class="dashboard-view__title">Messages</h1>
+          <p class="dashboard-view__intro">Updates and conversations with the Stackly team.</p>
+          <div class="dashboard__table-wrap dashboard-messages">
+            <article class="dashboard-message"><div><strong>Order update: #ORD-2025-001</strong><p>Your custom mailer boxes have shipped and are on their way.</p></div><time>Today</time></article>
+            <article class="dashboard-message"><div><strong>Design review complete</strong><p>Your Spring Collection proof is ready for approval.</p></div><time>Yesterday</time></article>
+            <article class="dashboard-message"><div><strong>Welcome to Stackly</strong><p>Need help with an order? Our packaging experts are here for you.</p></div><time>Jan 8</time></article>
+          </div>
+        </section>
+
+        <section class="dashboard-view" data-panel="settings" hidden>
+          <h1 class="dashboard-view__title">Settings</h1>
+          <p class="dashboard-view__intro">Manage your profile and notification preferences.</p>
+          <form class="dashboard__table-wrap dashboard-settings" onsubmit="event.preventDefault(); showToast('Your settings have been saved.', 'success');">
+            <label>Full name<input id="settingsName" type="text" required></label>
+            <label>Email address<input id="settingsEmail" type="email" required></label>
+            <label class="dashboard-settings__check"><input type="checkbox" checked> Send me order updates by email</label>
+            <button class="btn btn--primary btn--sm" type="submit">Save Changes</button>
+          </form>
+        </section>
       </div>
     </main>
   </div>
@@ -171,7 +236,9 @@
       if (auth.name) {
         document.querySelector('.dashboard__topbar-avatar').textContent = auth.name.charAt(0).toUpperCase();
         document.querySelector('.dashboard__topbar-profile span').textContent = auth.name;
+        document.getElementById('settingsName').value = auth.name;
       }
+      document.getElementById('settingsEmail').value = auth.email || '';
 
       // Stats counter animation
       document.querySelectorAll('[data-count]').forEach(el => {
@@ -214,12 +281,42 @@
 
       sidebarBackdrop?.addEventListener('click', () => setSidebarState(false));
 
+      const showView = (viewName) => {
+        const panel = document.querySelector(`[data-panel="${viewName}"]`);
+        if (!panel) return;
+        document.querySelectorAll('.dashboard-view').forEach(view => {
+          const isSelected = view === panel;
+          view.hidden = !isSelected;
+          view.classList.toggle('active', isSelected);
+        });
+        sidebar?.querySelectorAll('[data-view]').forEach(link => {
+          link.classList.toggle('active', link.dataset.view === viewName);
+        });
+        window.location.hash = viewName;
+      };
+
       sidebar?.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (event) => {
+          if (link.dataset.view) {
+            event.preventDefault();
+            showView(link.dataset.view);
+          }
           if (window.innerWidth <= 991) {
             setSidebarState(false);
           }
         });
+      });
+
+      const initialView = window.location.hash.slice(1);
+      if (initialView && document.querySelector(`[data-panel="${initialView}"]`)) {
+        showView(initialView);
+      }
+
+      window.addEventListener('hashchange', () => {
+        const viewName = window.location.hash.slice(1);
+        if (document.querySelector(`[data-panel="${viewName}"]`)) {
+          showView(viewName);
+        }
       });
 
       window.addEventListener('resize', () => {
