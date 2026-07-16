@@ -10,6 +10,37 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
+  <style>
+    .about-story__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: center; }
+    .about-values__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+    .about-team__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+    .about-stats { background: var(--espresso); padding: 100px 0; color: var(--white); }
+    .about-stats__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px; text-align: center; }
+
+    @media (max-width: 991px) {
+      .about-story__grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-values__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .about-team__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .about-stats__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 24px; }
+    }
+
+    @media (max-width: 767px) {
+      .about-story__grid { gap: 36px; }
+      .about-values__grid, .about-team__grid { grid-template-columns: 1fr; gap: 24px; }
+      .about-stats { padding: 64px 0; }
+      .about-stats__grid { gap: 32px 16px; }
+      .about-stats .stat__number { font-size: 42px !important; }
+      .timeline { padding-left: 32px !important; }
+      .timeline__dot { left: -28px; }
+      .timeline__year { font-size: 22px; }
+      .timeline__title { font-size: 18px; }
+      .timeline__text { overflow-wrap: anywhere; }
+    }
+
+    @media (max-width: 374px) {
+      .about-stats__grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
   <div id="nav-container"></div>
@@ -30,7 +61,7 @@
   <!-- Our Story -->
   <section class="section section-white">
     <div class="container">
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;">
+      <div class="about-story__grid">
         <div>
           <p class="overline animate-in">Our Story</p>
           <h2 class="section-title animate-in stagger-1" style="margin-bottom:24px;">From a Small Garage to Industry Leader</h2>
@@ -38,7 +69,7 @@
           <p class="body-text animate-in stagger-3">Our journey has been defined by a relentless pursuit of quality, sustainability, and innovation. We've pioneered eco-friendly packaging solutions, invested in cutting-edge printing technology, and built a team of passionate experts who share our vision.</p>
         </div>
         <div class="animate-in">
-          <div class="timeline" style="padding-left:40px;">
+          <div class="timeline">
             <div class="timeline__item">
               <div class="timeline__dot"></div>
               <p class="timeline__year">2010</p>
@@ -76,7 +107,7 @@
         <p class="overline section-header__overline">Our Mission</p>
         <h2 class="section-title section-header__title">What Drives Us</h2>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:32px;">
+      <div class="about-values__grid">
         <div class="card animate-in stagger-1" style="text-align:center;">
           <div class="card__icon" style="margin:0 auto 20px;"><i data-lucide="shield-check" style="width:28px;height:28px;"></i></div>
           <h3 class="card-title card__title">Quality First</h3>
@@ -118,7 +149,7 @@
         <p class="overline section-header__overline">Our Team</p>
         <h2 class="section-title section-header__title">Meet the Experts</h2>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:32px;">
+      <div class="about-team__grid">
         <div class="team-card animate-in stagger-1">
           <img src="assets/images/team-1.webp" alt="Michael Chen" class="team-card__image" loading="lazy">
           <h3 class="team-card__name">Michael Chen</h3>
@@ -160,9 +191,9 @@
   </section>
 
   <!-- Stats -->
-  <section style="background:var(--espresso); padding:100px 0; color:var(--white);">
+  <section class="about-stats">
     <div class="container">
-      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:48px; text-align:center;">
+      <div class="about-stats__grid">
         <div class="animate-in stagger-1">
           <p class="stat__number" style="color:var(--white); font-size:56px;" data-count="15000">0</p>
           <p style="color:rgba(255,255,255,0.7); font-size:16px;">Happy Clients</p>

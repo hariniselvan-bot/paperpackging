@@ -195,7 +195,6 @@ const Footer = {
                 <a href="index.html" class="footer__link">Home</a>
                 <a href="about.html" class="footer__link">About Us</a>
                 <a href="services.html" class="footer__link">Services</a>
-                <a href="index.html#pricing" class="footer__link">Pricing</a>
                 <a href="blog.html" class="footer__link">Blog</a>
                 <a href="contact.html" class="footer__link">Contact</a>
               </div>
